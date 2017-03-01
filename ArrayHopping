@@ -1,0 +1,80 @@
+package com.java.hackerrank.p2;
+
+import java.util.Scanner;
+
+public class ArrayHopping {
+
+	public static void main(String[] args) {
+
+		Scanner in = new Scanner(System.in);
+		System.out.println("Enter no Of TC");
+		int noOFTC = in.nextInt();
+		for (int i = 0; i < noOFTC; i++) {
+			//System.out.println("Length of Array");
+
+			int length = in.nextInt();
+			//System.out.println("Jumpind Length");
+			int jD = in.nextInt();
+			int[] arr = new int[length];
+			//System.out.println("Entries for " + length + " elements");
+			for (int j = 0; j < length; j++) {
+				arr[j] = in.nextInt();
+			}
+
+			boolean result = processToCheckWIn(0, jD, arr);
+			//System.out.println(result);
+			if (result) {
+				System.out.println("YES");
+			} else {
+				System.out.println("NO");
+			}
+		}
+
+	}
+
+	private static boolean processToCheckWIn(int currentIndex, int jD, int[] arr) {
+		// TODO : LOGIC
+
+		int newPos = 0;
+		
+		if (currentIndex < 0) {
+			return false;
+		}
+		if (currentIndex >= arr.length) {
+			return true;
+		}
+
+		if (arr[currentIndex] == 0) {
+
+			newPos = currentIndex + 1;
+			return processToCheckWIn(newPos, jD, arr);
+
+		} else {
+			currentIndex = currentIndex - 1;
+			if (currentIndex < 0) {
+				return false;
+			}
+			newPos = currentIndex + jD;
+			
+			if (newPos >= arr.length || arr[newPos] == 0) {
+				return processToCheckWIn(newPos, jD, arr);
+			} else {
+				currentIndex = currentIndex - 1;
+				if (currentIndex < 0) {
+					return false;
+				}
+				newPos = currentIndex + jD;
+				if(arr[newPos]==1){
+					return false;
+				}
+
+				// newPos = currentIndex + jD;
+
+				return processToCheckWIn(newPos, jD, arr);
+			}
+
+		}
+//		return false;
+	}
+
+}
